@@ -13,3 +13,5 @@ After write on new card no forget
 sudo raspi-config --expand-rootfs
 ```
 
+*** 
+Use part of code written by SirLagz
