@@ -14,7 +14,7 @@ exit
 fi
 
 if [[ -z $1 ]]; then
-echo "Usage: ./autosizer.sh "
+echo "Usage: ./reduct_img.sh "
 exit
 fi
 

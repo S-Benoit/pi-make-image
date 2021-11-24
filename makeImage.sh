@@ -1,25 +1,30 @@
 #!/bin/sh
 echo 'Hello'
 
-finalDir="/home/benoit/Raspberry/Images"
-workDir="/home/benoit/Raspberry/Work"
+currentUser="benoit"
 
-rm -rf $workDir"/*"
-rm -rf "/home/benoit/.local/share/Trash/files/*"
-rm -rf "/home/benoit/.local/share/Trash/info/*"
+finalDir=$HOME/Raspberry/Images
+workDir=$HOME/Raspberry/Work
+
+mkdir -p $finalDir
+mkdir -p $workDir
+
+rm -rf $workDir/*
+rm -rf $HOME/.local/share/Trash/files/*
+rm -rf $HOME/.local/share/Trash/info/*
 
 echo '-= Step 1/6 =-'
-echo 'Affichage des disques'
+echo 'Display disks'
 fdisk -l
 
 echo ''
 echo '-= Step 2/6 =-'
-echo 'Derniere lettre de /dev/sd? ?'
+echo 'Last letter of /dev/sd? ?'
 read letterCard
 
 echo ''
 echo '-= Step 3/6 =-'
-echo 'Nom du fichier de sortie?'
+echo 'Output filename ?'
 read fileName
 
 currentDate=`date +"%Y%m%d%H%M%S"`
@@ -29,22 +34,22 @@ sdCard="/dev/sd"$letterCard
 
 echo ''
 echo '-= Step 4/6 =-'
-echo "Creation de l'image de la carte "$sdCard
+echo "Card "$sdCard" image creation"
 
 workingCopy=$workDir"/working_copie.img"
 sudo ddrescue $sdCard $workingCopy
 
-cp /home/benoit/Raspberry/reduct_img.sh $workDir/reduct_img_cp.sh
+cp $HOME/Raspberry/reduct_img.sh $workDir/reduct_img_cp.sh
 
 echo ''
 echo '-= Step 5/6 =-'
 echo "Reduction de l'image de l'image "
-`cd /home/benoit/Raspberry/Work; ./reduct_img_cp.sh working_copie.img`
+`cd $HOME/Raspberry/Work; ./reduct_img_cp.sh working_copie.img`
 
 echo '-= Step 6/6 =-'
 echo 'Nettoyage'
-rm /home/benoit/Raspberry/Work/reduct_img_cp.sh
-chown benoit $workingCopy
-chgrp benoit $workingCopy
+rm $HOME/Raspberry/Work/reduct_img_cp.sh
+chown $currentUser $workingCopy
+chgrp $currentUser $workingCopy
 mv $workingCopy $finalName
 
