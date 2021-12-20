@@ -27,7 +27,7 @@ rm -rf $HOME/.local/share/Trash/info/*
 
 echo '-= Step 1/6 =-'
 echo 'Display disks'
-fdisk -l
+sudo fdisk -l
 
 echo ''
 echo '-= Step 2/6 =-'
@@ -56,12 +56,12 @@ cp $currentDir/reduct_img.sh $workDir/reduct_img_cp.sh
 echo ''
 echo '-= Step 5/6 =-'
 echo "Reduction de l'image de l'image "
-`cd $workDir; ./reduct_img_cp.sh working_copie.img`
+`cd $workDir; sudo ./reduct_img_cp.sh working_copie.img`
 
 echo '-= Step 6/6 =-'
 echo 'Nettoyage'
-rm $HOME/$workDir/reduct_img_cp.sh
-chown $currentUser $workingCopy
-chgrp $currentUser $workingCopy
+rm $workDir/reduct_img_cp.sh
+sudo chown $currentUser $workingCopy
+sudo chgrp $currentUser $workingCopy
 mv $workingCopy $finalName
 
